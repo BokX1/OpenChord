@@ -240,6 +240,28 @@ function findCodexPackageRoot(executablePath: string): string | null {
   return null;
 }
 
+function getResolverReadableRoots(platform: NodeJS.Platform): string[] {
+  if (platform === "linux") {
+    return [
+      "/etc/hosts",
+      "/etc/resolv.conf",
+      "/etc/nsswitch.conf",
+      "/etc/host.conf",
+      "/etc/gai.conf",
+      "/run/systemd/resolve",
+    ];
+  }
+
+  if (platform === "darwin") {
+    return [
+      "/etc/hosts",
+      "/etc/resolv.conf",
+    ];
+  }
+
+  return [];
+}
+
 function collectSandboxReadableRoots(config: BridgeConfig): string[] {
   const roots = new Set<string>([path.resolve(config.provider.isolatedCwd)]);
   const executablePath = resolveCodexExecutablePath(config.provider.codexCommand);
@@ -248,6 +270,11 @@ function collectSandboxReadableRoots(config: BridgeConfig): string[] {
     const packageRoot = findCodexPackageRoot(executablePath);
     if (packageRoot) {
       roots.add(path.resolve(packageRoot));
+    }
+  }
+  for (const resolverPath of getResolverReadableRoots(process.platform)) {
+    if (fs.existsSync(resolverPath)) {
+      roots.add(path.resolve(resolverPath));
     }
   }
   return [...roots];

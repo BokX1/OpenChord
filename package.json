@@ -1,6 +1,6 @@
 {
   "name": "openchord",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bring agent runtimes to Discord. Your runtime. Your tools. Your data.",
   "license": "MIT",
   "repository": {

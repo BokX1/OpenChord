@@ -55,17 +55,73 @@ describe("buildSandboxPolicy", () => {
       },
     });
 
-    expect(buildSandboxPolicy(config)).toEqual({
-      type: "workspaceWrite",
-      writableRoots: [workspace],
+    const policy = buildSandboxPolicy(config) as {
+      type: string;
+      writableRoots: string[];
       readOnlyAccess: {
-        type: "restricted",
-        includePlatformDefaults: true,
-        readableRoots: [workspace, binDir, packageRoot],
+        type: string;
+        includePlatformDefaults: boolean;
+        readableRoots: string[];
+      };
+      excludeSlashTmp: boolean;
+      excludeTmpdirEnvVar: boolean;
+      networkAccess: boolean;
+    };
+
+    expect(policy.type).toBe("workspaceWrite");
+    expect(policy.writableRoots).toEqual([workspace]);
+    expect(policy.readOnlyAccess.type).toBe("restricted");
+    expect(policy.readOnlyAccess.includePlatformDefaults).toBe(true);
+    expect(policy.readOnlyAccess.readableRoots).toEqual(
+      expect.arrayContaining([workspace, binDir, packageRoot]),
+    );
+    expect(policy.excludeSlashTmp).toBe(true);
+    expect(policy.excludeTmpdirEnvVar).toBe(true);
+    expect(policy.networkAccess).toBe(true);
+  });
+
+  it("adds resolver-readable roots when the host platform provides them", () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openchord-sandbox-"));
+    tempDirs.push(tempDir);
+    const workspace = path.join(tempDir, "workspace");
+    fs.mkdirSync(workspace, { recursive: true });
+
+    const config = makeTestConfig({
+      provider: {
+        hostToolProfile: "sandboxed-workspace-write",
+        isolatedCwd: workspace,
       },
-      excludeSlashTmp: true,
-      excludeTmpdirEnvVar: true,
-      networkAccess: true,
     });
+
+    const policy = buildSandboxPolicy(config) as {
+      readOnlyAccess: {
+        readableRoots: string[];
+      };
+    };
+
+    if (process.platform === "linux") {
+      for (const candidate of ["/etc/hosts", "/etc/resolv.conf", "/etc/nsswitch.conf"]) {
+        if (fs.existsSync(candidate)) {
+          expect(policy.readOnlyAccess.readableRoots).toContain(path.resolve(candidate));
+        }
+      }
+      return;
+    }
+
+    if (process.platform === "darwin") {
+      for (const candidate of ["/etc/hosts", "/etc/resolv.conf"]) {
+        if (fs.existsSync(candidate)) {
+          expect(policy.readOnlyAccess.readableRoots).toContain(path.resolve(candidate));
+        }
+      }
+      return;
+    }
+
+    expect(policy.readOnlyAccess.readableRoots).toEqual(
+      expect.not.arrayContaining([
+        path.resolve("/etc/hosts"),
+        path.resolve("/etc/resolv.conf"),
+      ]),
+    );
   });
 });
