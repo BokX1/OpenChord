@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.1.3 - 2026-03-25
+
+Patch release for final prompt wording polish.
+
+Highlights:
+
+- tightened sandbox capability wording without changing runtime behavior
+- made authority guidance read more naturally while preserving the same policy
+- made the native-reply versus Discord-tool distinction easier for the model to follow
+
 ## 0.1.2 - 2026-03-25
 
 Patch release for prompt clarity and sandbox capability messaging.
