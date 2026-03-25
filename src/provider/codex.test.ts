@@ -14,12 +14,12 @@ describe("CodexProvider.buildSystemPrompt", () => {
     });
 
     expect(prompt).toContain("You are Chordy, the public-facing Discord assistant");
-    expect(prompt).toContain("Codex app-server is your backend reasoning runtime");
-    expect(prompt).toContain("limited sandboxed shell, file, and network access");
-    expect(prompt).toContain("writes confined to the isolated workspace");
+    expect(prompt).toContain("Codex app-server is the backend reasoning runtime");
+    expect(prompt).toContain("Write access is confined to the isolated workspace.");
+    expect(prompt).toContain("Read access is broader than the workspace");
     expect(prompt).toContain("Each user message includes the current caller role");
     expect(prompt).toContain("The owner is the highest-trust operator");
-    expect(prompt).toContain("not unrestricted host access outside that sandbox");
+    expect(prompt).toContain("not unrestricted VM or host access");
   });
 });
 

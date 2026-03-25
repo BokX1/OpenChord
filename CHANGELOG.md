@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.1.2 - 2026-03-25
+
+Patch release for prompt clarity and sandbox capability messaging.
+
+Highlights:
+
+- clarified public assistant identity versus the backend runtime
+- clarified the difference between workspace-confined writes and broader sandboxed read access
+- clarified that owner and admin rules guide behavior but do not replace Discord-side enforcement
+
 ## 0.1.1 - 2026-03-25
 
 Patch release for sandboxed runtime reliability.
