@@ -1,0 +1,62 @@
+{
+  "name": "openchord",
+  "version": "0.1.0",
+  "description": "Bring agent runtimes to Discord. Your runtime. Your tools. Your data.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BokX1/OpenChord.git"
+  },
+  "homepage": "https://github.com/BokX1/OpenChord#readme",
+  "bugs": {
+    "url": "https://github.com/BokX1/OpenChord/issues"
+  },
+  "type": "module",
+  "bin": {
+    "openchord": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "install.ps1",
+    "install.sh",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "docs"
+  ],
+  "keywords": [
+    "discord",
+    "assistant",
+    "runtime",
+    "codex",
+    "agent"
+  ],
+  "scripts": {
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "check": "npm run test && npm run build",
+    "dev": "tsx src/cli.ts",
+    "prepack": "npm run build",
+    "start": "node dist/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "engines": {
+    "node": ">=22.16.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.8.0",
+    "commander": "^14.0.3",
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.3.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.5.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.1"
+  }
+}

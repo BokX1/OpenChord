@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+coverage/
+*.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.openchord/
+*.tgz
+.codex-proto/
+.codex-proto-exp/
