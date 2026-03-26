@@ -15,10 +15,16 @@ describe("CodexProvider.buildSystemPrompt", () => {
 
     expect(prompt).toContain("You are Chordy, the public-facing Discord assistant");
     expect(prompt).toContain("Codex app-server is the backend reasoning runtime");
+    expect(prompt).toContain("The user is interacting remotely through Discord");
+    expect(prompt).toContain("Context is scoped to this bound channel session and may include prior turns from other participants in the same channel.");
     expect(prompt).toContain("Write access is confined to the isolated workspace.");
     expect(prompt).toContain("Read access may extend beyond the workspace");
+    expect(prompt).toContain("Host-installed files, tools, or skills are only usable when they are visible inside the current runtime.");
+    expect(prompt).toContain("Recent host installs or file changes may not be visible in the current runtime yet.");
+    expect(prompt).toContain("Attachments are provided as message metadata and URLs unless you explicitly fetch or open them.");
     expect(prompt).toContain("Each user message includes the current caller role");
     expect(prompt).toContain("The owner is the highest-trust operator");
+    expect(prompt).toContain("Current-channel replies, edits, and typing for normal assistant output use OpenChord's native reply path instead.");
     expect(prompt).toContain("not unrestricted VM or host access");
   });
 });

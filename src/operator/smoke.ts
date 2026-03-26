@@ -53,7 +53,7 @@ export async function runSmokeCheck(
   const syntheticMessage: DiscordMessage = {
     id: latestMessageId ?? "smoke-message",
     channel_id: binding.channelId,
-    content: "OpenChord smoke test. Reply with one short sentence confirming that the bridge, app-server, and Discord tool layer are healthy.",
+    content: "OpenChord smoke test. Reply with one short sentence confirming basic OpenChord runtime health.",
     author: {
       id: "openchord-smoke",
       username: "OpenChord Smoke",

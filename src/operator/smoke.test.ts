@@ -37,6 +37,13 @@ describe("runSmokeCheck", () => {
     expect(result.posted).toBe(false);
     expect(result.replyPreview).toBe("OpenChord smoke confirmed.");
     expect(client.sendMessage).not.toHaveBeenCalled();
+    expect(provider.runTurn).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: expect.objectContaining({
+          content: "OpenChord smoke test. Reply with one short sentence confirming basic OpenChord runtime health.",
+        }),
+      }),
+    );
   });
 
   it("posts only when explicitly requested", async () => {

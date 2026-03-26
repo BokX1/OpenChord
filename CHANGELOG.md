@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.1.4 - 2026-03-26
+
+Patch release for final Discord-facing prompt clarity.
+
+Highlights:
+
+- clarified that Discord users are remote and do not share the runtime environment
+- clarified that channel memory is shared per bound channel rather than private per user
+- clarified attachment visibility and host-state versus runtime-visible state
+- clarified the distinction between tool-driven Discord actions and OpenChord's native reply path
+
 ## 0.1.3 - 2026-03-25
 
 Patch release for final prompt wording polish.
